@@ -1,23 +1,15 @@
-// File: src/App.jsx
-// --- MODIFIED ---
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import { Toaster } from 'react-hot-toast'; // Import Toaster
-import './style/main.css'; // Import the CSS file
+import NavBar from './components/NavBar.jsx';
+import { Toaster } from 'react-hot-toast';
+import './style/main.css';
 
 function App() {
   return (
     <div>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          // Define default options
-          duration: 5000,
-        }}
-      />
-      <Navbar />
-      <hr />
+      <div className="background-animation"></div>
+      <Toaster position="top-center" />
+      <NavBar />
       <main>
         <Outlet />
       </main>

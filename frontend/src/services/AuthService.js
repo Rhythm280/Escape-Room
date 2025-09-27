@@ -7,7 +7,6 @@ const register = (userData) => {
 };
 
 const login = (userData) => {
-    // We'll implement the login logic soon
     return axios.post(`${API_URL}/login`, userData);
 };
 

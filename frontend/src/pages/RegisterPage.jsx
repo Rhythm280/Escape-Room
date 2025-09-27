@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import authService from '../services/authService';
 import toast from 'react-hot-toast';
 
@@ -18,17 +18,17 @@ const RegisterPage = () => {
         } catch (error) {
             const errorMessage = error.response?.data?.message || "Registration failed. Please try again.";
             toast.error(errorMessage);
-            console.error(error);
         }
     };
 
     return (
         <div>
-            <h2>Register</h2>
+            <h2>Create a New Account</h2>
             <form onSubmit={handleRegister}>
                 <div>
-                    <label>Username:</label>
+                    <label htmlFor="username">Username</label>
                     <input
+                        id="username"
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -36,8 +36,9 @@ const RegisterPage = () => {
                     />
                 </div>
                 <div>
-                    <label>Email:</label>
+                    <label htmlFor="email">Email Address</label>
                     <input
+                        id="email"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -45,16 +46,22 @@ const RegisterPage = () => {
                     />
                 </div>
                 <div>
-                    <label>Password:</label>
+                    <label htmlFor="password">Password</label>
                     <input
+                        id="password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </div>
-                <button type="submit">Register</button>
+                <div>
+                    <button type="submit">Register</button>
+                </div>
             </form>
+            <p>
+                Already have an account? <Link to="/login">Login here</Link>
+            </p>
         </div>
     );
 };

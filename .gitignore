@@ -1,3 +1,4 @@
-# Environment variables
-.env
+# .gitignore
+
+# Environment variables - DO NOT COMMIT
 backend/.env

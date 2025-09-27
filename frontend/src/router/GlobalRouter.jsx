@@ -5,34 +5,37 @@ import LoginPage from '../pages/LoginPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
 import GamePage from '../pages/GamePage.jsx';
 import LandingPage from '../pages/LandingPage.jsx';
-import ProtectedRoute from '../components/ProtectedRoute.jsx'; // Import the ProtectedRoute
+import ProtectedRoute from '../components/ProtectedRoute.jsx';
+import AdminRoute from '../components/AdminRoute.jsx';
+import AdminDashboard from '../pages/AdminDashboard.jsx';
+import PlayerDashboard from '../pages/PlayerDashboard.jsx';
+import LeaderboardPage from '../pages/LeaderboardPage.jsx'; // Import the new page
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         children: [
+            // Public routes
+            { index: true, element: <LandingPage /> },
+            { path: "login", element: <LoginPage /> },
+            { path: "register", element: <RegisterPage /> },
+            { path: "leaderboard/:roomId", element: <LeaderboardPage /> }, // New dynamic route
+
+            // Protected routes for players
             {
-                index: true,
-                element: <LandingPage />,
-            },
-            {
-                path: "login",
-                element: <LoginPage />,
-            },
-            {
-                path: "register",
-                element: <RegisterPage />,
-            },
-            {
-                // This route group now protects all its children
                 element: <ProtectedRoute />,
                 children: [
-                    {
-                        path: "home",
-                        element: <GamePage />,
-                    },
-                    // Add any other future protected routes here
+                    { path: "dashboard", element: <PlayerDashboard /> },
+                    { path: "home", element: <GamePage /> },
+                ],
+            },
+            
+            // Protected routes for admins
+            {
+                element: <AdminRoute />,
+                children: [
+                    { path: "admin", element: <AdminDashboard /> },
                 ],
             },
         ],

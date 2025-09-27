@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
@@ -12,23 +12,28 @@ const LoginPage = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            await login({ username, password });
+            const user = await login({ username, password });
             toast.success("Login successful!");
-            navigate('/home');
+
+            if (user && user.roles.includes('ADMIN')) {
+                navigate('/admin');
+            } else {
+                navigate('/dashboard');
+            }
         } catch (err) {
             const errorMessage = err.response?.data?.message || "Login failed. Please check your credentials.";
             toast.error(errorMessage);
-            console.error(err);
         }
     };
 
     return (
         <div>
-            <h2>Login</h2>
+            <h2>Login to Your Account</h2>
             <form onSubmit={handleLogin}>
                 <div>
-                    <label>Username:</label>
+                    <label htmlFor="username">Username</label>
                     <input
+                        id="username"
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -36,16 +41,22 @@ const LoginPage = () => {
                     />
                 </div>
                 <div>
-                    <label>Password:</label>
+                    <label htmlFor="password">Password</label>
                     <input
+                        id="password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </div>
-                <button type="submit">Login</button>
+                <div>
+                    <button type="submit">Login</button>
+                </div>
             </form>
+            <p>
+                Don't have an account? <Link to="/register">Register here</Link>
+            </p>
         </div>
     );
 };

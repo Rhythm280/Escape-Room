@@ -1,5 +1,6 @@
 package org.joy.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,11 +16,12 @@ import lombok.NoArgsConstructor;
 public class GameState {
 
     @Id
-    private Long id; // Same ID as the User
+    private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId // This links the GameState ID to the User ID
+    @MapsId
     @JoinColumn(name = "user_id")
+    @JsonIgnore // Prevents infinite recursion when serializing
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
