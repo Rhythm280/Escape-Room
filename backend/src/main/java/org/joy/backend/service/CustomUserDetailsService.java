@@ -1,12 +1,12 @@
 package org.joy.backend.service;
 
-import lombok.RequiredArgsConstructor;
-import org.joy.backend.models.User;
 import org.joy.backend.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
